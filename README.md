@@ -6,7 +6,7 @@ It is consisted by 2 controllers.
 - CardCostConfigurationController
 
 The first one accepts as input Issuer Identification Numbers (IIN), previously known as Bank Identification Number (BIN), leverages  ​https://binlist.net/ 
-using IHttpClientFactory and returns the calculated cost based on the country the card belongs to.
+using <strong>IHttpClientFactory</strong> and returns the calculated cost based on the country the card belongs to.
 
 The second one provides full CRUD operationson the card cost configuration.
 
