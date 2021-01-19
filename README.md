@@ -1,5 +1,5 @@
 # card-cost-api
-.NET Core CRUD api with 3rd party services integration
+.NET Core CRUD api integrating with 3rd party services.
 
 The Card Cost API is a simple CRUD api communicating with 3rd party services.
 
