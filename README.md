@@ -10,6 +10,8 @@ using <strong>IHttpClientFactory</strong> and returns the calculated cost based 
 
 The second one provides full CRUD operationson the card cost configuration.
 
+**Note** The api preloads with 2 records country:cost - GR:10 and US:15. If requested bin number doesnt belong to any configured country there is a default cost of 10 in DefaultCardCostSettings section in appsettings.json. The DefaultCardCostSettings is loaded in the system using the IOptions pattern.
+
 The api can be accessed and tested by hitting the run button on VS. (setting the CardCostApi.Web as startup project is required.)
 
 The browser will load https://localhost:44313/docs (unless launchsettings.json is modified) where swagger UI can be used to play around with the api.
