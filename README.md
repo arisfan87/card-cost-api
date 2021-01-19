@@ -15,7 +15,7 @@ In any case where ​https://binlist.net/ fails to respond with a a succcess sta
 
 The api can be accessed and tested by hitting the run button on VS. (setting the CardCostApi.Web as startup project is required.)
 
-The browser will load https://localhost:44313/docs (unless launchsettings.json is modified) where swagger UI can be used to play around with the api.
+The browser will load https://localhost:44313/docs (unless launchsettings.json is modified) where swagger UI can be used to interact with the api.
 
 # Integration testing using in memory db per test class
 
