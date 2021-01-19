@@ -10,7 +10,8 @@ using <strong>IHttpClientFactory</strong> and returns the calculated cost based 
 
 The second one provides full CRUD operationson the card cost configuration.
 
-**Note** The api preloads with 2 records country:cost - GR:10 and US:15. If requested bin number doesnt belong to any configured country there is a default cost of 10 in DefaultCardCostSettings section in appsettings.json. The DefaultCardCostSettings is loaded in the system using the <strong>IOptions</strong> pattern.
+**Note**: The api preloads with 2 records country:cost - GR:10 and US:15. If requested bin number doesnt belong to any configured country there is a default cost of 10 in DefaultCardCostSettings section in appsettings.json. The DefaultCardCostSettings is loaded in the system using the <strong>IOptions</strong> pattern.
+In any case where ​https://binlist.net/ fails to respond with a a succcess status code a custom exception <strong>ExternalServiceCommunicationException</strong> will be thrown including status code details and optional inner exception details. The custom exceptions should be handled in the controllers.
 
 The api can be accessed and tested by hitting the run button on VS. (setting the CardCostApi.Web as startup project is required.)
 
