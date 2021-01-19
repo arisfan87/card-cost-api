@@ -1,9 +1,0 @@
-C:\Users\ArisFanaras\source\repos\CardCostApi\CardCostApi.Infrastructure\obj\Debug\netcoreapp3.1\CardCostApi.Infrastructure.AssemblyInfoInputs.cache
-C:\Users\ArisFanaras\source\repos\CardCostApi\CardCostApi.Infrastructure\obj\Debug\netcoreapp3.1\CardCostApi.Infrastructure.AssemblyInfo.cs
-C:\Users\ArisFanaras\source\repos\CardCostApi\CardCostApi.Infrastructure\obj\Debug\netcoreapp3.1\CardCostApi.Infrastructure.csproj.CoreCompileInputs.cache
-C:\Users\ArisFanaras\source\repos\CardCostApi\CardCostApi.Infrastructure\bin\Debug\netcoreapp3.1\CardCostApi.Infrastructure.deps.json
-C:\Users\ArisFanaras\source\repos\CardCostApi\CardCostApi.Infrastructure\bin\Debug\netcoreapp3.1\CardCostApi.Infrastructure.dll
-C:\Users\ArisFanaras\source\repos\CardCostApi\CardCostApi.Infrastructure\bin\Debug\netcoreapp3.1\CardCostApi.Infrastructure.pdb
-C:\Users\ArisFanaras\source\repos\CardCostApi\CardCostApi.Infrastructure\obj\Debug\netcoreapp3.1\CardCostApi.Infrastructure.dll
-C:\Users\ArisFanaras\source\repos\CardCostApi\CardCostApi.Infrastructure\obj\Debug\netcoreapp3.1\CardCostApi.Infrastructure.pdb
-C:\Users\ArisFanaras\source\repos\CardCostApi\CardCostApi.Infrastructure\obj\Debug\netcoreapp3.1\CardCostApi.Infrastructure.csprojAssemblyReference.cache
