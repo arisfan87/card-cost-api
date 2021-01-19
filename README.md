@@ -1,14 +1,12 @@
 # card-cost-api
-.NET Core CRUD api integrating with 3rd party services.
-
-The Card Cost API is a simple CRUD api communicating with 3rd party services.
+The Card Cost API is a simple .NET Core CRUD api integrating with 3rd party services.
 
 It is consisted by 2 controllers.
 - CardCostController 
 - CardCostConfigurationController
 
-The first one accepts as input Issuer Identification Numbers (IIN), previously known as Bank Identification Number (BIN), leverage  ​https://binlist.net/ 
-and returns the calculated cost based on the country the card belongs to.
+The first one accepts as input Issuer Identification Numbers (IIN), previously known as Bank Identification Number (BIN), leverages  ​https://binlist.net/ 
+using IHttpClientFactory and returns the calculated cost based on the country the card belongs to.
 
 The second one provides full CRUD operationson the card cost configuration.
 
