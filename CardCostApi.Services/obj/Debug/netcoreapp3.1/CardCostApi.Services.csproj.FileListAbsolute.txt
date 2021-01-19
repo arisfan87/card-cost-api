@@ -1,0 +1,12 @@
+C:\Users\ArisFanaras\source\repos\CardCostApi\CardCostApi.Services\obj\Debug\netcoreapp3.1\CardCostApi.Services.AssemblyInfoInputs.cache
+C:\Users\ArisFanaras\source\repos\CardCostApi\CardCostApi.Services\obj\Debug\netcoreapp3.1\CardCostApi.Services.AssemblyInfo.cs
+C:\Users\ArisFanaras\source\repos\CardCostApi\CardCostApi.Services\obj\Debug\netcoreapp3.1\CardCostApi.Services.csproj.CoreCompileInputs.cache
+C:\Users\ArisFanaras\source\repos\CardCostApi\CardCostApi.Services\obj\Debug\netcoreapp3.1\CardCostApi.Services.csprojAssemblyReference.cache
+C:\Users\ArisFanaras\source\repos\CardCostApi\CardCostApi.Services\bin\Debug\netcoreapp3.1\CardCostApi.Services.deps.json
+C:\Users\ArisFanaras\source\repos\CardCostApi\CardCostApi.Services\bin\Debug\netcoreapp3.1\CardCostApi.Services.dll
+C:\Users\ArisFanaras\source\repos\CardCostApi\CardCostApi.Services\bin\Debug\netcoreapp3.1\CardCostApi.Services.pdb
+C:\Users\ArisFanaras\source\repos\CardCostApi\CardCostApi.Services\bin\Debug\netcoreapp3.1\CardCostApi.Infrastructure.dll
+C:\Users\ArisFanaras\source\repos\CardCostApi\CardCostApi.Services\bin\Debug\netcoreapp3.1\CardCostApi.Infrastructure.pdb
+C:\Users\ArisFanaras\source\repos\CardCostApi\CardCostApi.Services\obj\Debug\netcoreapp3.1\CardCostApi.Services.csproj.CopyComplete
+C:\Users\ArisFanaras\source\repos\CardCostApi\CardCostApi.Services\obj\Debug\netcoreapp3.1\CardCostApi.Services.dll
+C:\Users\ArisFanaras\source\repos\CardCostApi\CardCostApi.Services\obj\Debug\netcoreapp3.1\CardCostApi.Services.pdb
