@@ -9,7 +9,7 @@ namespace CardCostApi.Services
 {
     public class BinListService : ΙBinListService
     {
-        private IHttpClientFactory _clientFactory { get; }
+        private readonly IHttpClientFactory _clientFactory;
         private readonly JsonSerializerOptions _jsonSerializerOptions;
 
         public BinListService(IHttpClientFactory client)
