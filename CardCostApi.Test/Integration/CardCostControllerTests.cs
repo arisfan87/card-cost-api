@@ -1,12 +1,14 @@
-﻿using System;
+﻿using System.ComponentModel;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using CardCostApi.Infrastructure;
+using CardCostApi.Infrastructure.Exceptions;
 using CardCostApi.Services;
 using CardCostApi.Web.Models;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Extensions;
 using Moq;
 using Newtonsoft.Json;
 using Xunit;
@@ -40,6 +42,10 @@ namespace CardCostApi.Test.Integration
         [Fact]
         public async Task GetCardCost_ValidRequest_200OK()
         {
+            var d = Names.Aris;
+            var b = d.GetAttributeOfType<DescriptionAttribute>().Description;
+
+
             // act, arrange
             var sut = await _httpClient.GetAsync("/api/card-cost/424242");
             sut.EnsureSuccessStatusCode();
@@ -107,5 +113,14 @@ namespace CardCostApi.Test.Integration
             // assert
             Assert.Equal(HttpStatusCode.NotFound, sut.StatusCode);
         }
+    }
+
+    public enum Names
+    {
+        [Description("Aris Fanaras")] Aris,
+
+        [Description("kostas kotsidas")] Kostas,
+
+        [Description("Panos mavr")] Panos
     }
 }

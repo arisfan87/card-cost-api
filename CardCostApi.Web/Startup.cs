@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using CardCostApi.Infrastructure;
 using CardCostApi.Infrastructure.Entities;
 using CardCostApi.Infrastructure.Store;
@@ -30,17 +31,23 @@ namespace CardCostApi.Web
                     opt.UseInMemoryDatabase(databaseName: "card_cost");
                     opt.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
                 });
-            services.AddOptions<DefaultCardCostSettings>().Bind(Configuration.GetSection("DefaultCardCostSettings"))
+            services.AddOptions<DefaultCardCostSettings>()
+                .Bind(Configuration.GetSection("DefaultCardCostSettings"))
                 .ValidateDataAnnotations();
 
             services.AddSwaggerGen();
-
             services.AddControllers();
-            services.AddHttpClient();
+            services.AddHttpClient(
+                "BinListClient",
+                c =>
+                {
+                    c.BaseAddress = new Uri(Configuration.GetValue<string>("BinListBaseUrl"));
+                    c.DefaultRequestHeaders.Add("Accept", "application/json");
+                });
             services.AddTransient<ΙBinListService, BinListService>();
             services.AddTransient<ICardCostService, CardCostService>();
             services.AddTransient<ICardCostConfigurationService, CardCostConfigurationService>();
-            services.AddTransient<IRepository, EfRepository>();
+            services.AddTransient<ICardCostConfigurationRepository, CardCostConfigurationRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,11 +76,7 @@ namespace CardCostApi.Web
                 });
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
-            app.UseAuthorization();
-
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
 

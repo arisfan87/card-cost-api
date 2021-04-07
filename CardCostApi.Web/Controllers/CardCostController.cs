@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Net;
 using System.Threading.Tasks;
-using CardCostApi.Infrastructure;
+using CardCostApi.Infrastructure.Exceptions;
 using CardCostApi.Services;
 using CardCostApi.Web.Models;
 using Microsoft.AspNetCore.Http;
@@ -48,7 +48,7 @@ namespace CardCostApi.Web.Controllers
             {
                 return NotFound();
             }
-            catch (ExternalServiceCommunicationException e) when(e.StatusCode == HttpStatusCode.TooManyRequests)
+            catch (ExternalServiceCommunicationException e) when (e.StatusCode == HttpStatusCode.TooManyRequests)
             {
                 return StatusCode(429);
             }

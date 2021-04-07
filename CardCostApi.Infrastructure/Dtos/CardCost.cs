@@ -1,6 +1,6 @@
 ﻿namespace CardCostApi.Infrastructure.Dtos
 {
-    public class CardCostDto
+    public class CardCost
     {
         public string Country { get; set; }
 

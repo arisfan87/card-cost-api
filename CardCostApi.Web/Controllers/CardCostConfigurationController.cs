@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using CardCostApi.Infrastructure;
-using CardCostApi.Infrastructure.Dtos;
+using CardCostApi.Infrastructure.Exceptions;
 using CardCostApi.Services;
 using CardCostApi.Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using CardCost = CardCostApi.Infrastructure.Dtos.CardCost;
 
 namespace CardCostApi.Web.Controllers
 {
@@ -31,7 +31,7 @@ namespace CardCostApi.Web.Controllers
             try
             {
                 await _cardCostConfigurationService.Add(
-                    new CardCostDto
+                    new CardCost
                     {
                         Country = request.Country,
                         Cost = request.Cost.Value
@@ -54,7 +54,7 @@ namespace CardCostApi.Web.Controllers
             try
             {
                 await _cardCostConfigurationService.Update(
-                    new CardCostDto
+                    new CardCost
                     {
                         Country = request.Country,
                         Cost = request.Cost.Value
@@ -77,7 +77,7 @@ namespace CardCostApi.Web.Controllers
         {
             try
             {
-                var result = await _cardCostConfigurationService.Get(country.ToUpper());
+                var result = await _cardCostConfigurationService.GetByCountry(country.ToUpper());
 
                 return Ok(
                     new CardCostConfig.Response

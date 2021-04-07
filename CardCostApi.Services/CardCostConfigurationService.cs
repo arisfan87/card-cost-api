@@ -1,95 +1,88 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CardCostApi.Infrastructure;
 using CardCostApi.Infrastructure.Dtos;
 using CardCostApi.Infrastructure.Entities;
+using CardCostApi.Infrastructure.Exceptions;
 using CardCostApi.Infrastructure.Store;
 
 namespace CardCostApi.Services
 {
     public class CardCostConfigurationService : ICardCostConfigurationService
     {
-        private readonly IRepository _repository;
+        private readonly ICardCostConfigurationRepository _cardCostConfigurationRepository;
 
-        public CardCostConfigurationService(IRepository repository)
+        public CardCostConfigurationService(ICardCostConfigurationRepository repository)
         {
-            _repository = repository;
+            _cardCostConfigurationRepository = repository;
         }
 
-        public async Task Add(CardCostDto cardCostDto)
+        public async Task Add(CardCost cardCost)
         {
-            var cardCost = await _repository.GetByIdAsync<CardCostEntity>(cardCostDto.Country);
+            var cardCostEntity = await _cardCostConfigurationRepository.GetByCountryAsync(cardCost.Country);
 
-            if (cardCost != null) throw new CardCostAlreadyExistsException($"Card cost with key {cardCostDto.Country} already configured.");
+            if (cardCostEntity != null)
+                throw new CardCostAlreadyExistsException(
+                    $"Card cost with key {cardCost.Country} already configured.");
 
-            var cardCostEntity = new CardCostEntity
-            {
-                Cost = cardCostDto.Cost,
-                Country = cardCostDto.Country
-            };
-
-            await _repository.AddAsync(cardCostEntity);
+            await _cardCostConfigurationRepository.AddAsync(
+                new CardCostEntity
+                {
+                    Cost = cardCost.Cost,
+                    Country = cardCost.Country
+                });
         }
 
         public async Task Delete(string country)
         {
-            var cardCost = await _repository.GetByIdAsync<CardCostEntity>(country);
+            var cardCostEntity = await _cardCostConfigurationRepository.GetByCountryAsync(country);
 
-            if (cardCost is null) throw new CardCostNotConfiguredException($"Card cost with key {country} not configured.");
+            if (cardCostEntity is null)
+                throw new CardCostNotConfiguredException($"Card cost with key {country} not configured.");
 
-            var cardCostEntity = new CardCostEntity
-            {
-                Cost = cardCost.Cost,
-                Country = cardCost.Country
-            };
-
-            await _repository.DeleteAsync(cardCostEntity);
+            await _cardCostConfigurationRepository.DeleteAsync(
+                new CardCostEntity
+                {
+                    Cost = cardCostEntity.Cost,
+                    Country = cardCostEntity.Country
+                });
         }
 
-        public async Task Update(CardCostDto cardCostDto)
+        public async Task Update(CardCost cardCost)
         {
-            var cardCost = await _repository.GetByIdAsync<CardCostEntity>(cardCostDto.Country);
+            var cardCostEntity = await _cardCostConfigurationRepository.GetByCountryAsync(cardCost.Country);
 
-            if (cardCost is null) throw new CardCostNotConfiguredException($"Card cost with key {cardCostDto.Country} not configured.");
+            if (cardCostEntity is null)
+                throw new CardCostNotConfiguredException($"Card cost with key {cardCost.Country} not configured.");
 
-            var cardCostEntity = new CardCostEntity
-            {
-                Cost = cardCostDto.Cost,
-                Country = cardCostDto.Country
-            };
-
-            try
-            {
-                await _repository.UpdateAsync(cardCostEntity);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+            await _cardCostConfigurationRepository.UpdateAsync(
+                new CardCostEntity
+                {
+                    Cost = cardCost.Cost,
+                    Country = cardCost.Country
+                });
         }
 
-        public async Task<CardCostDto> Get(string country)
+        public async Task<CardCost> GetByCountry(string country)
         {
-            var cardCost = await _repository.GetByIdAsync<CardCostEntity>(country);
+            var cardCostEntity = await _cardCostConfigurationRepository.GetByCountryAsync(country);
 
-            if (cardCost is null) throw new CardCostNotConfiguredException($"Card cost with key {country} not configured.");
+            if (cardCostEntity is null)
+                throw new CardCostNotConfiguredException($"Card cost with key {country} not configured.");
 
-            return new CardCostDto
+            return new CardCost
             {
-                Cost = cardCost.Cost,
-                Country = cardCost.Country
+                Cost = cardCostEntity.Cost,
+                Country = cardCostEntity.Country
             };
         }
 
-        public async Task<IEnumerable<CardCostDto>> GetAll()
+        public async Task<IEnumerable<CardCost>> GetAll()
         {
-            var cardCostEntity = await _repository.ListAsync<CardCostEntity>();
+            var cardCostEntities = await _cardCostConfigurationRepository.ListAsync();
 
-            return cardCostEntity.Select(
-                s => new CardCostDto
+            return cardCostEntities.Select(
+                s => new CardCost
                 {
                     Cost = s.Cost,
                     Country = s.Country
