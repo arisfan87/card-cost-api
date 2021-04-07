@@ -10,10 +10,16 @@ namespace CardCostApi.Services
     public class BinListService : ΙBinListService
     {
         private IHttpClientFactory _clientFactory { get; }
+        private readonly JsonSerializerOptions _jsonSerializerOptions;
 
         public BinListService(IHttpClientFactory client)
         {
             _clientFactory = client;
+            _jsonSerializerOptions = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true,
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            };
         }
 
         public async Task<string> GetCountryByCardBin(string bin)
@@ -32,7 +38,9 @@ namespace CardCostApi.Services
                     response.StatusCode);
             }
 
-            var cardMetadata = await response.Content.ReadFromJsonAsync<CardMetadata>();
+            await using var content = await response.Content.ReadAsStreamAsync();
+            var cardMetadata = await JsonSerializer.DeserializeAsync<CardMetadata>(
+                content, _jsonSerializerOptions);
 
             if (cardMetadata is null)
                 throw new ArgumentNullException(nameof(cardMetadata), "Card cost metadata is null.");
