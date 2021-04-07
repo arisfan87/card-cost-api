@@ -6,10 +6,10 @@ namespace CardCostApi.Services
 {
     public interface ICardCostConfigurationService
     {
-        Task Add(CardCostDto cardCost);
+        Task Add(CardCost cardCost);
         Task Delete(string country);
-        Task Update(CardCostDto cardCostDto);
-        Task<CardCostDto> Get(string country);
-        Task<IEnumerable<CardCostDto>> GetAll();
+        Task Update(CardCost cardCostDto);
+        Task<CardCost> GetByCountry(string country);
+        Task<IEnumerable<CardCost>> GetAll();
     }
 }

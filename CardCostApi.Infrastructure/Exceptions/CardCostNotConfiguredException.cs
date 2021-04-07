@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CardCostApi.Infrastructure
+namespace CardCostApi.Infrastructure.Exceptions
 {
     /// <summary>
     /// Exception for signalling card cost configuration errors.
@@ -12,7 +12,9 @@ namespace CardCostApi.Infrastructure
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="innerException">(Optional) The inner exception.</param>
-        public CardCostNotConfiguredException(string message, Exception? innerException = null) : base(message, innerException)
+        public CardCostNotConfiguredException(string message, Exception? innerException = null) : base(
+            message,
+            innerException)
         {
         }
     }

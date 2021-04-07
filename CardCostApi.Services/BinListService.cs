@@ -1,29 +1,29 @@
-﻿using System.Net;
+﻿using System;
 using System.Net.Http;
-using System.Text.Json;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 using CardCostApi.Infrastructure;
+using CardCostApi.Infrastructure.Exceptions;
 
 namespace CardCostApi.Services
 {
     public class BinListService : ΙBinListService
     {
-        public IHttpClientFactory ClientFactory { get; }
+        private IHttpClientFactory _clientFactory { get; }
 
         public BinListService(IHttpClientFactory client)
         {
-            ClientFactory = client;
+            _clientFactory = client;
         }
 
         public async Task<string> GetCountryByCardBin(string bin)
         {
-            var request = new HttpRequestMessage(
-                HttpMethod.Get,
-                string.Format($"https://lookup.binlist.net/{bin}", bin));
+            var client = _clientFactory.CreateClient("BinListClient");
 
-            var client = ClientFactory.CreateClient();
-
-            var response = await client.SendAsync(request);
+            var response = await client.SendAsync(
+                new HttpRequestMessage(
+                    HttpMethod.Get,
+                    $"/{bin}"));
 
             if (!response.IsSuccessStatusCode)
             {
@@ -32,13 +32,10 @@ namespace CardCostApi.Services
                     response.StatusCode);
             }
 
-            var options = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            };
+            var cardMetadata = await response.Content.ReadFromJsonAsync<CardMetadata>();
 
-            var jsonString = await response.Content.ReadAsStringAsync();
-            var cardMetadata = JsonSerializer.Deserialize<CardMetadata>(jsonString, options);
+            if (cardMetadata is null)
+                throw new ArgumentNullException(nameof(cardMetadata), "Card cost metadata is null.");
 
             return cardMetadata.Country.Alpha2;
         }

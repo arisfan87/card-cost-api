@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
 
-namespace CardCostApi.Infrastructure
+namespace CardCostApi.Infrastructure.Exceptions
 {
     /// <summary>
     /// Exception for signalling remote service errors.

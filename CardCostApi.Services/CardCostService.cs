@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using CardCostApi.Infrastructure;
-using CardCostApi.Infrastructure.Entities;
 using CardCostApi.Infrastructure.Store;
 using Microsoft.Extensions.Options;
 
@@ -9,14 +8,14 @@ namespace CardCostApi.Services
     public class CardCostService : ICardCostService
     {
         private readonly ΙBinListService _binListService;
-        private readonly IRepository _repository;
+        private readonly ICardCostConfigurationRepository _cardCostConfigurationRepository;
         private readonly IOptions<DefaultCardCostSettings> _options;
 
-        public CardCostService(ΙBinListService binListService, IRepository repository,
+        public CardCostService(ΙBinListService binListService, ICardCostConfigurationRepository repository,
             IOptions<DefaultCardCostSettings> options)
         {
             _binListService = binListService;
-            _repository = repository;
+            _cardCostConfigurationRepository = repository;
             _options = options;
         }
 
@@ -24,7 +23,7 @@ namespace CardCostApi.Services
         {
             var country = await _binListService.GetCountryByCardBin(bin);
 
-            var configuredCardCost = await _repository.GetByIdAsync<CardCostEntity>(country);
+            var configuredCardCost = await _cardCostConfigurationRepository.GetByCountryAsync(country);
 
             if (configuredCardCost is null)
             {

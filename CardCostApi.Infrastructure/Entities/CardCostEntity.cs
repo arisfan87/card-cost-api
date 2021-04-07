@@ -1,6 +1,6 @@
 ﻿namespace CardCostApi.Infrastructure.Entities
 {
-    public class CardCostEntity : BaseEntity
+    public class CardCostEntity
     {
         public string Country { get; set; }
 
