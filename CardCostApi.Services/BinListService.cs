@@ -43,7 +43,7 @@ namespace CardCostApi.Services
                 content, _jsonSerializerOptions);
 
             if (cardMetadata is null)
-                throw new ArgumentNullException(nameof(cardMetadata), "Card cost metadata is null.");
+                throw new ArgumentNullException(nameof(cardMetadata), "Card metadata is null.");
 
             return cardMetadata.Country.Alpha2;
         }
