@@ -2,9 +2,9 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using CardCostApi.Infrastructure;
-using CardCostApi.Infrastructure.Exceptions;
-using CardCostApi.Services;
+using CardCostApi.Core.Abstractions;
+using CardCostApi.Core.Exceptions;
+using CardCostApi.Infrastructure.Store;
 using CardCostApi.Web.Models;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;

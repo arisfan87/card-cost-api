@@ -1,4 +1,4 @@
-﻿namespace CardCostApi.Infrastructure
+﻿namespace CardCostApi.Core.Settings
 {
     public class DefaultCardCostSettings
     {

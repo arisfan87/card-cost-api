@@ -1,5 +1,5 @@
-﻿using CardCostApi.Infrastructure;
-using CardCostApi.Infrastructure.Entities;
+﻿using CardCostApi.Infrastructure.Entities;
+using CardCostApi.Infrastructure.Store;
 using Microsoft.Extensions.Configuration;
 using Xunit;
 

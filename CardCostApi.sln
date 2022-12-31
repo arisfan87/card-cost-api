@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30711.63
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardCostApi.Test", "CardCostApi.Test\CardCostApi.Test.csproj", "{A779584D-2952-47C5-8F49-E423E2610278}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardCostApi.Services", "CardCostApi.Services\CardCostApi.Services.csproj", "{6C53C0F8-C97D-4C8C-AF72-5E59C6A2C64D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardCostApi.Core", "CardCostApi.Services\CardCostApi.Core.csproj", "{6C53C0F8-C97D-4C8C-AF72-5E59C6A2C64D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardCostApi.Infrastructure", "CardCostApi.Infrastructure\CardCostApi.Infrastructure.csproj", "{FB6F8BF0-7696-4341-A93A-238A3D6EEBC8}"
 EndProject

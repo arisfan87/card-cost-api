@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using CardCostApi.Infrastructure.Dtos;
+using CardCostApi.Core.Models;
 
-namespace CardCostApi.Services
+namespace CardCostApi.Core.Abstractions
 {
     public interface ICardCostConfigurationService
     {

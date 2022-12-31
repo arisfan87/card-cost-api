@@ -1,7 +1,7 @@
 ﻿using CardCostApi.Infrastructure.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace CardCostApi.Infrastructure
+namespace CardCostApi.Infrastructure.Store
 {
     public class CardCostContext : DbContext
     {
