@@ -33,6 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CardCostApi.Core\CardCostApi.Core.csproj" />
     <ProjectReference Include="..\CardCostApi.Web\CardCostApi.Web.csproj" />
   </ItemGroup>
 

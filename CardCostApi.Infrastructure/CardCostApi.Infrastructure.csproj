@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CardCostApi.Core\CardCostApi.Core.csproj" />
     <ProjectReference Include="..\CardCostApi.Services\CardCostApi.Core.csproj" />
   </ItemGroup>
 

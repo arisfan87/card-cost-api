@@ -8,7 +8,6 @@ using CardCostApi.Infrastructure.Store;
 using CardCostApi.Web.Models;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.Extensions;
 using Moq;
 using Newtonsoft.Json;
 using Xunit;
