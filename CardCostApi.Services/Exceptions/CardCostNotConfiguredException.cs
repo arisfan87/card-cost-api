@@ -1,18 +1,18 @@
 ﻿using System;
 
-namespace CardCostApi.Infrastructure.Exceptions
+namespace CardCostApi.Core.Exceptions
 {
     /// <summary>
     /// Exception for signalling card cost configuration errors.
     /// </summary>
-    public class CardCostAlreadyExistsException : Exception
+    public class CardCostNotConfiguredException : Exception
     {
         /// <summary>
-        /// Initialises a new instance of the <see cref="CardCostAlreadyExistsException" /> class.
+        /// Initialises a new instance of the <see cref="CardCostNotConfiguredException" /> class.
         /// </summary>
         /// <param name="message">The message.</param>
         /// <param name="innerException">(Optional) The inner exception.</param>
-        public CardCostAlreadyExistsException(string message, Exception? innerException = null) : base(
+        public CardCostNotConfiguredException(string message, Exception? innerException = null) : base(
             message,
             innerException)
         {

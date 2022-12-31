@@ -9,6 +9,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="5.0.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.6.3" />
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
@@ -16,7 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CardCostApi.Infrastructure\CardCostApi.Infrastructure.csproj" />
-    <ProjectReference Include="..\CardCostApi.Services\CardCostApi.Services.csproj" />
+    <ProjectReference Include="..\CardCostApi.Services\CardCostApi.Core.csproj" />
   </ItemGroup>
 
 

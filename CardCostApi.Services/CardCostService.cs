@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using CardCostApi.Infrastructure;
-using CardCostApi.Infrastructure.Store;
+using CardCostApi.Core.Abstractions;
+using CardCostApi.Core.Settings;
 using Microsoft.Extensions.Options;
 
-namespace CardCostApi.Services
+namespace CardCostApi.Core
 {
     public class CardCostService : ICardCostService
     {

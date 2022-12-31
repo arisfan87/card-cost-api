@@ -1,4 +1,8 @@
-﻿namespace CardCostApi.Infrastructure.Dtos
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace CardCostApi.Core.Models
 {
     public class CardCost
     {

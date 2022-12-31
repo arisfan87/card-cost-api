@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Linq;
-using CardCostApi.Infrastructure;
+using CardCostApi.Core;
+using CardCostApi.Core.Abstractions;
+using CardCostApi.Core.Settings;
+using CardCostApi.Infrastructure.BinList;
 using CardCostApi.Infrastructure.Entities;
 using CardCostApi.Infrastructure.Store;
-using CardCostApi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 
 namespace CardCostApi.Web
 {
@@ -66,6 +69,8 @@ namespace CardCostApi.Web
                     AddTestData(context);
                 }
             }
+
+            app.UseSerilogRequestLogging();
 
             app.UseSwagger();
             app.UseSwaggerUI(

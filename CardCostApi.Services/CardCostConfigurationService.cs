@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CardCostApi.Infrastructure.Dtos;
-using CardCostApi.Infrastructure.Entities;
-using CardCostApi.Infrastructure.Exceptions;
-using CardCostApi.Infrastructure.Store;
+using CardCostApi.Core.Abstractions;
+using CardCostApi.Core.Exceptions;
+using CardCostApi.Core.Models;
 
-namespace CardCostApi.Services
+namespace CardCostApi.Core
 {
     public class CardCostConfigurationService : ICardCostConfigurationService
     {
@@ -25,12 +24,7 @@ namespace CardCostApi.Services
                 throw new CardCostAlreadyExistsException(
                     $"Card cost with key {cardCost.Country} already configured.");
 
-            await _cardCostConfigurationRepository.AddAsync(
-                new CardCostEntity
-                {
-                    Cost = cardCost.Cost,
-                    Country = cardCost.Country
-                });
+            await _cardCostConfigurationRepository.AddAsync(cardCost);
         }
 
         public async Task Delete(string country)
@@ -41,7 +35,7 @@ namespace CardCostApi.Services
                 throw new CardCostNotConfiguredException($"Card cost with key {country} not configured.");
 
             await _cardCostConfigurationRepository.DeleteAsync(
-                new CardCostEntity
+                new CardCost
                 {
                     Cost = cardCostEntity.Cost,
                     Country = cardCostEntity.Country
@@ -56,7 +50,7 @@ namespace CardCostApi.Services
                 throw new CardCostNotConfiguredException($"Card cost with key {cardCost.Country} not configured.");
 
             await _cardCostConfigurationRepository.UpdateAsync(
-                new CardCostEntity
+                new CardCost
                 {
                     Cost = cardCost.Cost,
                     Country = cardCost.Country

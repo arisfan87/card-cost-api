@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using CardCostApi.Infrastructure;
+using CardCostApi.Infrastructure.Store;
 using CardCostApi.Web;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;

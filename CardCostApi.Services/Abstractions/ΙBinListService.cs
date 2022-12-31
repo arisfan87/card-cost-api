@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace CardCostApi.Services
+namespace CardCostApi.Core.Abstractions
 {
     public interface ΙBinListService
     {

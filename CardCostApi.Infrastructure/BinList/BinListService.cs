@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Net.Http;
-using System.Net.Http.Json;
+using System.Text.Json;
 using System.Threading.Tasks;
-using CardCostApi.Infrastructure;
-using CardCostApi.Infrastructure.Exceptions;
+using CardCostApi.Core.Abstractions;
+using CardCostApi.Core.Exceptions;
 
-namespace CardCostApi.Services
+namespace CardCostApi.Infrastructure.BinList
 {
     public class BinListService : ΙBinListService
     {
