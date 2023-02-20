@@ -27,17 +27,17 @@ namespace CardCostApi.Test
             builder.ConfigureTestServices(
                 services =>
                 {
-                    var dbContext =
-                        services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<CardCostContext>));
+                    //var dbContext =
+                    //    services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<CardCostContext>));
 
-                    if (dbContext != null) services.Remove(dbContext);
+                    //if (dbContext != null) services.Remove(dbContext);
 
-                    services.AddDbContext<CardCostContext>(
-                        o =>
-                        {
-                            o.UseInMemoryDatabase("TestDb", _dbRoot);
-                            o.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-                        });
+                    //services.AddDbContext<CardCostContext>(
+                    //    o =>
+                    //    {
+                    //        o.UseInMemoryDatabase("TestDb", _dbRoot);
+                    //        o.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+                    //    });
                 });
 
             builder.UseEnvironment("Testing");

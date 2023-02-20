@@ -39,6 +39,7 @@ namespace CardCostApi.Infrastructure.BinList
             }
 
             await using var content = await response.Content.ReadAsStreamAsync();
+            
             var cardMetadata = await JsonSerializer.DeserializeAsync<CardMetadata>(
                 content, _jsonSerializerOptions);
 

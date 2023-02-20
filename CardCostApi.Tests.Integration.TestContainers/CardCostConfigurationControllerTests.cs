@@ -1,40 +1,17 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Threading.Tasks;
-using CardCostApi.Infrastructure.Store;
-using CardCostApi.Web.Models;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.Extensions.DependencyInjection;
+﻿using System.Net;
+using CardCostApi.Tests.Integration.TestContainers.Contracts;
 using Newtonsoft.Json;
-using Xunit;
 
-namespace CardCostApi.Test.Integration
+namespace CardCostApi.Tests.Integration.TestContainers
 {
-    public class CardCostConfigurationControllerTests : IntegrationBaseTest
+    public class CardCostConfigurationControllerTests : IClassFixture<CardCostWebApplicationFactory>
     {
+        private readonly CardCostWebApplicationFactory _factory;
         private readonly HttpClient _httpClient;
-
-        public CardCostConfigurationControllerTests(ApiWebApplicationFactory fixture)
-            : base(fixture)
+        public CardCostConfigurationControllerTests(CardCostWebApplicationFactory factory)
         {
-            _httpClient = _factory.WithWebHostBuilder(
-                    builder =>
-                    {
-                        builder.ConfigureServices(
-                            services =>
-                            {
-                                //var sp = services.BuildServiceProvider();
-                                //using var scope = sp.CreateScope();
-                                //var scopedServices = scope.ServiceProvider;
-                                //var db = scopedServices.GetRequiredService<CardCostContext>();
-                                //db.Database.EnsureCreated();
-                                //ResetDb(db);
-                            });
-                    })
-                .CreateClient(new WebApplicationFactoryClientOptions());
+            _factory = factory;
+            _httpClient = _factory.CreateClient();
         }
 
         [Fact]

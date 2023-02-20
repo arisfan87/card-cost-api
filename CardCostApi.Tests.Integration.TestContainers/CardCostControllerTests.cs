@@ -1,47 +1,34 @@
-﻿using System.ComponentModel;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using System.Net;
 using CardCostApi.Core.Abstractions;
 using CardCostApi.Core.Exceptions;
-using CardCostApi.Infrastructure.Store;
 using CardCostApi.Web.Models;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using Newtonsoft.Json;
-using Xunit;
 
-namespace CardCostApi.Test.Integration
+namespace CardCostApi.Tests.Integration.TestContainers
 {
-    public class CardCostControllerTests : IntegrationBaseTest
+    public class CardCostControllerTests : IClassFixture<CardCostWebApplicationFactory>
     {
+        private readonly CardCostWebApplicationFactory _factory;
         private HttpClient _httpClient;
-
-        public CardCostControllerTests(ApiWebApplicationFactory fixture)
-            : base(fixture)
+        public CardCostControllerTests(CardCostWebApplicationFactory factory)
         {
-            _httpClient = _factory.WithWebHostBuilder(
-                    builder =>
-                    {
-                        builder.ConfigureServices(
-                            services =>
-                            {
-                                //var sp = services.BuildServiceProvider();
-                                //using var scope = sp.CreateScope();
-                                //var scopedServices = scope.ServiceProvider;
-                                //var db = scopedServices.GetRequiredService<CardCostContext>();
-                                //db.Database.EnsureCreated();
-                                //ResetDb(db);
-                            });
-                    })
-                .CreateClient(new WebApplicationFactoryClientOptions());
+            _factory = factory;
+            _httpClient = _factory.CreateClient();
         }
 
         [Fact]
         public async Task GetCardCost_ValidRequest_200OK()
         {
-            // act, arrange
+            // arrange
+            var binListService = Mock.Of<ΙBinListService>();
+            Mock.Get(binListService)
+                .Setup(x => x.GetCountryByCardBin(It.IsAny<string>()))
+                .ReturnsAsync("US");
+
+            // act
             var sut = await _httpClient.GetAsync("/api/card-cost/424242");
             sut.EnsureSuccessStatusCode();
 

@@ -73,7 +73,7 @@ namespace CardCostApi.Core
 
         public async Task<IEnumerable<CardCost>> GetAll()
         {
-            var cardCostEntities = await _cardCostConfigurationRepository.ListAsync();
+            var cardCostEntities = await _cardCostConfigurationRepository.GetAllAsync();
 
             return cardCostEntities.Select(
                 s => new CardCost

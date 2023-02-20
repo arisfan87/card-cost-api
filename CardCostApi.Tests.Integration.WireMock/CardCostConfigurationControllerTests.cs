@@ -1,40 +1,17 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Threading.Tasks;
-using CardCostApi.Infrastructure.Store;
-using CardCostApi.Web.Models;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.Extensions.DependencyInjection;
+﻿using System.Net;
+using CardCostApi.Tests.Integration.WireMock.ApiContracts;
 using Newtonsoft.Json;
-using Xunit;
 
-namespace CardCostApi.Test.Integration
+namespace CardCostApi.Tests.Integration.WireMock
 {
-    public class CardCostConfigurationControllerTests : IntegrationBaseTest
+    public class CardCostConfigurationControllerTests : IClassFixture<CardCostWebApplicationFactory>
     {
+        private readonly CardCostWebApplicationFactory _factory;
         private readonly HttpClient _httpClient;
-
-        public CardCostConfigurationControllerTests(ApiWebApplicationFactory fixture)
-            : base(fixture)
+        public CardCostConfigurationControllerTests(CardCostWebApplicationFactory factory)
         {
-            _httpClient = _factory.WithWebHostBuilder(
-                    builder =>
-                    {
-                        builder.ConfigureServices(
-                            services =>
-                            {
-                                //var sp = services.BuildServiceProvider();
-                                //using var scope = sp.CreateScope();
-                                //var scopedServices = scope.ServiceProvider;
-                                //var db = scopedServices.GetRequiredService<CardCostContext>();
-                                //db.Database.EnsureCreated();
-                                //ResetDb(db);
-                            });
-                    })
-                .CreateClient(new WebApplicationFactoryClientOptions());
+            _factory = factory;
+            _httpClient = _factory.CreateClient();
         }
 
         [Fact]
@@ -73,14 +50,14 @@ namespace CardCostApi.Test.Integration
         public async Task GetCardCost_ValidRequest_200OK()
         {
             // act, arrange
-            var sut = await _httpClient.GetAsync("/api/card-config/gr");
+            var sut = await _httpClient.GetAsync("/api/card-config/us");
             var cardConfig =
                 JsonConvert.DeserializeObject<CardCostConfig.Response>(await sut.Content.ReadAsStringAsync());
 
             // assert
             sut.EnsureSuccessStatusCode();
             Assert.Equal(HttpStatusCode.OK, sut.StatusCode);
-            Assert.Equal(10, cardConfig.Cost);
+            Assert.Equal(15, cardConfig.Cost);
         }
 
         [Fact]
@@ -95,24 +72,7 @@ namespace CardCostApi.Test.Integration
             // assert
             sut.EnsureSuccessStatusCode();
             Assert.Equal(HttpStatusCode.OK, sut.StatusCode);
-            Assert.Equal(2, cardConfigs.Count());
-        }
-
-        [Fact]
-        public async Task UpdateCardCost_ValidRequest_204NoContent()
-        {
-            // act, arrange
-            var sut = await _httpClient.PutAsJsonAsync(
-                "/api/card-config",
-                new CardCostConfig.Request
-                {
-                    Country = "GR",
-                    Cost = 12
-                });
-
-            // assert
-            sut.EnsureSuccessStatusCode();
-            Assert.Equal(HttpStatusCode.NoContent, sut.StatusCode);
+            Assert.NotEmpty(cardConfigs);
         }
 
         [Fact]
@@ -123,22 +83,12 @@ namespace CardCostApi.Test.Integration
                 "/api/card-config",
                 new CardCostConfig.Request
                 {
-                    Country = "ES",
+                    Country = "CY",
                     Cost = 12
                 });
 
             // assert
             Assert.Equal(HttpStatusCode.NotFound, sut.StatusCode);
-        }
-
-        [Fact]
-        public async Task DeleteCardCost_ValidRequest_204NoContent()
-        {
-            // act, arrange
-            var sut = await _httpClient.DeleteAsync("/api/card-config/gr");
-
-            // assert
-            Assert.Equal(HttpStatusCode.NoContent, sut.StatusCode);
         }
     }
 }

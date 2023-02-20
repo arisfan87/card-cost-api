@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net.Http;
 using CardCostApi.Core;
 using CardCostApi.Core.Abstractions;
 using CardCostApi.Core.Settings;
@@ -12,6 +13,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Polly;
+using Polly.Extensions.Http;
 using Serilog;
 
 namespace CardCostApi.Web
@@ -28,12 +31,7 @@ namespace CardCostApi.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<CardCostContext>(
-                opt =>
-                {
-                    opt.UseInMemoryDatabase(databaseName: "card_cost");
-                    opt.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-                });
+            services.Configure<DbConfiguration>(Configuration.GetRequiredSection("DbConfiguration"));
             services.AddOptions<DefaultCardCostSettings>()
                 .Bind(Configuration.GetSection("DefaultCardCostSettings"))
                 .ValidateDataAnnotations();
@@ -46,7 +44,8 @@ namespace CardCostApi.Web
                 {
                     c.BaseAddress = new Uri(Configuration.GetValue<string>("BinListBaseUrl"));
                     c.DefaultRequestHeaders.Add("Accept", "application/json");
-                });
+                }).AddPolicyHandler(GetRetryPolicy());
+
             services.AddTransient<ΙBinListService, BinListService>();
             services.AddTransient<ICardCostService, CardCostService>();
             services.AddTransient<ICardCostConfigurationService, CardCostConfigurationService>();
@@ -59,15 +58,6 @@ namespace CardCostApi.Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-
-                using var scope = app.ApplicationServices.CreateScope();
-                var context = scope.ServiceProvider.GetService<CardCostContext>();
-
-                if (!context.CardCosts.ToListAsync().Result.Any())
-                {
-                    context.Database.EnsureCreated();
-                    AddTestData(context);
-                }
             }
 
             app.UseSerilogRequestLogging();
@@ -85,25 +75,12 @@ namespace CardCostApi.Web
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
 
-        private static void AddTestData(CardCostContext context)
+        static IAsyncPolicy<HttpResponseMessage> GetRetryPolicy()
         {
-            var cardCost1 = new CardCostEntity
-            {
-                Country = "GR",
-                Cost = 10
-            };
-
-            context.CardCosts.Add(cardCost1);
-
-            var cardCost2 = new CardCostEntity
-            {
-                Country = "US",
-                Cost = 15
-            };
-
-            context.CardCosts.Add(cardCost2);
-
-            context.SaveChanges();
+            return HttpPolicyExtensions
+                .HandleTransientHttpError()
+                .OrResult(msg => msg.StatusCode == System.Net.HttpStatusCode.ServiceUnavailable)
+                .WaitAndRetryAsync(2, retryAttempt => TimeSpan.FromSeconds(1));
         }
     }
 }

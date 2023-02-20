@@ -21,9 +21,9 @@ namespace CardCostApi.Core
 
         public async Task<(decimal cost, string country)> GetCardCost(string bin)
         {
-            var country = await _binListService.GetCountryByCardBin(bin);
+            var country = await _binListService.GetCountryByCardBin(bin); // virtualize it with wiremock server
 
-            var configuredCardCost = await _cardCostConfigurationRepository.GetByCountryAsync(country);
+            var configuredCardCost = await _cardCostConfigurationRepository.GetByCountryAsync(country); // make a call to the containerized db
 
             if (configuredCardCost is null)
             {

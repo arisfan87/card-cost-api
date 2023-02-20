@@ -18,28 +18,28 @@ namespace CardCostApi.Test
                 .Build();
         }
 
-        protected void ResetDb(CardCostContext context)
-        {
-            context.Database.EnsureDeleted();
-            context.Database.EnsureCreated();
+        //protected void ResetDb(CardCostContext context)
+        //{
+        //    context.Database.EnsureDeleted();
+        //    context.Database.EnsureCreated();
 
-            var cardCost1 = new CardCostEntity
-            {
-                Country = "GR",
-                Cost = 10
-            };
+        //    var cardCost1 = new CardCostEntity
+        //    {
+        //        Country = "GR",
+        //        Cost = 10
+        //    };
 
-            context.CardCosts.Add(cardCost1);
+        //    context.CardCosts.Add(cardCost1);
 
-            var cardCost2 = new CardCostEntity
-            {
-                Country = "US",
-                Cost = 15
-            };
+        //    var cardCost2 = new CardCostEntity
+        //    {
+        //        Country = "US",
+        //        Cost = 15
+        //    };
 
-            context.CardCosts.Add(cardCost2);
+        //    context.CardCosts.Add(cardCost2);
 
-            context.SaveChanges();
-        }
+        //    context.SaveChanges();
+        //}
     }
 }

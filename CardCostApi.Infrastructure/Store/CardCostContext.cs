@@ -1,28 +1,39 @@
-﻿using CardCostApi.Infrastructure.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿//using CardCostApi.Infrastructure.Entities;
+//using Microsoft.EntityFrameworkCore;
 
-namespace CardCostApi.Infrastructure.Store
-{
-    public class CardCostContext : DbContext
-    {
-        public CardCostContext(DbContextOptions<CardCostContext> options)
-            : base(options)
-        {
-        }
+//namespace CardCostApi.Infrastructure.Store
+//{
+//    public class CardCostContext : DbContext
+//    {
+//        public CardCostContext(DbContextOptions<CardCostContext> options)
+//            : base(options)
+//        {
+//        }
 
-        public DbSet<CardCostEntity> CardCosts { get; set; }
+//        //protected override void OnConfiguring(DbContextOptionsBuilder options)
+//        //{
+//        //    // connect to postgres with connection string from app settings
+//        //    options.UseNpgsql("");
+//        //}
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<CardCostEntity>()
-                .HasKey(b => b.Country);
+//        public DbSet<CardCostEntity> CardCosts { get; set; }
 
-            modelBuilder.Entity<CardCostEntity>().Property(b => b.Cost).HasMaxLength(2);
+//        //protected override void OnModelCreating(ModelBuilder builder)
+//        //{
+//        //    base.OnModelCreating(builder);
+//        //}
 
-            modelBuilder.Entity<CardCostEntity>()
-                .Property(b => b.Cost).IsRequired();
-        }
-    }
+//        protected override void OnModelCreating(ModelBuilder modelBuilder)
+//        {
+//            modelBuilder.Entity<CardCostEntity>()
+//                .HasKey(b => b.Id);
 
-    public delegate TContext DbContextFactory<out TContext>() where TContext : DbContext;
-}
+//            modelBuilder.Entity<CardCostEntity>().Property(b => b.Country).HasMaxLength(2);
+
+//            modelBuilder.Entity<CardCostEntity>()
+//                .Property(b => b.Cost).IsRequired();
+//        }
+//    }
+
+//    public delegate TContext DbContextFactory<out TContext>() where TContext : DbContext;
+//}
