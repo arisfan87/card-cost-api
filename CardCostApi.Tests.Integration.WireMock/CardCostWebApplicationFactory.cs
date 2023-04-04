@@ -15,7 +15,7 @@ namespace CardCostApi.Tests.Integration.WireMock
 {
     public class CardCostWebApplicationFactory : WebApplicationFactory<Startup>, IAsyncLifetime
     {
-        protected internal readonly TestcontainerDatabase _container = new TestcontainersBuilder<PostgreSqlTestcontainer>()
+        protected internal readonly TestcontainerDatabase _dbContainer = new TestcontainersBuilder<PostgreSqlTestcontainer>()
             .WithDatabase(new PostgreSqlTestcontainerConfiguration
             {
                 Database = "cardcosts",
@@ -50,22 +50,21 @@ namespace CardCostApi.Tests.Integration.WireMock
 
                     services.Configure<DbConfiguration>(config =>
                     {
-                        config.ConnectionString = _container.ConnectionString;
+                        config.ConnectionString = _dbContainer.ConnectionString;
                     });
                 });
-
         }
-
+        
         public async Task InitializeAsync()
         {
             using var cts = new CancellationTokenSource(TimeSpan.FromMinutes(5));
-            await _container.StartAsync(cts.Token);
-            await _container.ExecScriptAsync(Migrations.InitialDbSchema, CancellationToken.None);
+            await _dbContainer.StartAsync(cts.Token);
+            await _dbContainer.ExecScriptAsync(Migrations.InitialDbSchema, CancellationToken.None);
         }
 
         public new async Task DisposeAsync()
         {
-            await _container.DisposeAsync();
+            await _dbContainer.DisposeAsync();
 
             _binListVirtualServer.Stop();
             _binListVirtualServer.Dispose();

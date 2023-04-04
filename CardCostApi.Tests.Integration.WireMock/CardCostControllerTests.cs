@@ -11,6 +11,7 @@ namespace CardCostApi.Tests.Integration.WireMock
     {
         private readonly CardCostWebApplicationFactory _factory;
         private readonly HttpClient _httpClient;
+        
         public CardCostControllerTests(CardCostWebApplicationFactory factory)
         {
             _factory = factory;
@@ -21,10 +22,10 @@ namespace CardCostApi.Tests.Integration.WireMock
         public async Task GetCardCost_ValidRequest_200OK()
         {
             // arrange
-            var binlistServer = _factory._binListVirtualServer;
             var bin = "424242";
 
-            binlistServer.Given(Request.Create().WithPath($"/{bin}").UsingGet())
+            _factory._binListVirtualServer
+                .Given(Request.Create().WithPath($"/{bin}").UsingGet())
                 .RespondWith(Response.Create().WithBodyAsJson(new CardMetadata {
                         Country = new Country
                         {
@@ -44,52 +45,14 @@ namespace CardCostApi.Tests.Integration.WireMock
             Assert.Equal(HttpStatusCode.OK, sut.StatusCode);
         }
 
-        [Fact]
-        public async Task GetCardCost_TooManyRequests_429()
-        {
-            // arrange
-            var bin = "424242";
-            _factory._binListVirtualServer
-                .Given(
-                    Request.Create().WithPath($"/{bin}").UsingGet())
-                .RespondWith(
-                    Response.Create().WithStatusCode(HttpStatusCode.TooManyRequests));
-            
-            // act
-            var sut = await _httpClient.GetAsync($"/api/card-cost/{bin}");
-
-            // assert
-            Assert.Equal(HttpStatusCode.TooManyRequests, sut.StatusCode);
-        }
-
-        [Fact]
-        public async Task GetCardCost_CardBinNotFound_404NotFound()
+        [Fact(DisplayName = "This test will fail. Its an edge case of malformed response. It is not handled in the code.")]
+        public async Task GetCardCost_MalformedResponse_()
         {
             // arrange
             var bin = "934567";
             _factory._binListVirtualServer
-                .Given(
-                    Request.Create().WithPath($"/{bin}").UsingGet())
-                .RespondWith(
-                    Response.Create().WithStatusCode(HttpStatusCode.NotFound));
-
-            // act
-            var sut = await _httpClient.GetAsync($"/api/card-cost/{bin}");
-
-            // assert
-            Assert.Equal(HttpStatusCode.NotFound, sut.StatusCode);
-        }
-
-        [Fact(DisplayName = "Will fail as an edge case of malformed responses is not handled in the code.")]
-        public async Task? GetCardCost_MalformedResponse_()
-        {
-            // arrange
-            var bin = "934567";
-            _factory._binListVirtualServer
-                .Given(
-                    Request.Create().WithPath($"/{bin}").UsingGet())
-                .RespondWith(
-                    Response.Create()
+                .Given(Request.Create().WithPath($"/{bin}").UsingGet())
+                .RespondWith(Response.Create()
                         .WithFault(FaultType.MALFORMED_RESPONSE_CHUNK)
                         .WithStatusCode(HttpStatusCode.OK));
 

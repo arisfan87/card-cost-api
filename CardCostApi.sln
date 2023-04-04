@@ -20,7 +20,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardCostApi.Tests.Integrati
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CardCostApi.Tests.Integration.WireMock", "CardCostApi.Tests.Integration.WireMock\CardCostApi.Tests.Integration.WireMock.csproj", "{3926C0BE-A2B6-46E9-8885-424ABFFDC7B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WireMockServer", "WireMockServer\WireMockServer.csproj", "{0F3CF87E-0974-43BF-96DD-C40715AAEA7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WireMockServer", "WireMockServer\WireMockServer.csproj", "{0F3CF87E-0974-43BF-96DD-C40715AAEA7B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -26,10 +26,7 @@ namespace CardCostApi.Infrastructure.BinList
         {
             var client = _clientFactory.CreateClient("BinListClient");
 
-            var response = await client.SendAsync(
-                new HttpRequestMessage(
-                    HttpMethod.Get,
-                    $"/{bin}"));
+            var response = await client.GetAsync($"/{bin}");
 
             if (!response.IsSuccessStatusCode)
             {
