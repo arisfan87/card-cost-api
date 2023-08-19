@@ -24,7 +24,6 @@ Integration tests ensure that an app's components function correctly at a level 
 such as the database, file system, and network. 
 ASP.NET Core supports integration tests using a unit test framework with a test web host and an in-memory test server.
 
-
 - A test project is used to contain and execute the tests. The test project has a reference to the SUT.
 - The test project creates a test web host for the SUT and uses a test server client to handle requests and responses with the SUT.
 - A test runner is used to execute the tests and report the test results.
